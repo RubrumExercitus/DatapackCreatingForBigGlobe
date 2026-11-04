@@ -1,0 +1,384 @@
+reminders for myself:
+	renderdoc:
+		LD_PRELOAD=/home/builderb0y/renderdoc_1.38/lib/librenderdoc.so
+	SoftReference delays:
+		-XX:SoftRefLRUPolicyMSPerMB=10
+
+bugs:
+	geode spikes can still spawn outside of geodes.
+	after teleporting to a new world, some world-specific commands show suggestions from the old world.
+		this is probably a minecraft bug, but I haven't looked at it in a huge amount of detail yet.
+	fabric has a memory leak.
+		the MinecraftServer is stored in ServerConfigurationNetworkAddon,
+		which is stored in GlobalReceiverRegistry.trackedAddons,
+		which is stored in ServerNetworkingImpl.CONFIGURATIONS.
+	fabric fails to upgrade big globe worlds.
+		TaggedChoiceTypeMixin cancels a method with a Codec,
+		despite the fact that minecraft changed to using a MapCodec instead.
+	hyperspace flight still persists after leaving hyperspace.
+		only on forge/sinytra.
+
+testing:
+	cubic chunks compatibility, whenever that's released.
+	compatibility with chunk pre-generator mods.
+		"chunky" is the one reported to me, and apparently it either
+		uses up a stupid amount of RAM, or has a memory leak.
+
+where I left off:
+	check if I can or should make delegating structures not spawn outside of big globe worlds.
+	some way to allow scripts to fill a full 3D range of values, rather than one Y level at a time.
+	foliage exclusion for villages on island skylands affects mainland below.
+	generic scripted ore?
+	add STRUCTURE column usage.
+		ensure this is actually doable with WorldWrapper inheriting columns from its parent.
+	no loading context available with cyanide installed.
+		possibly only an issue on dedicated servers.
+	separate texture layers for overgrown sand,
+		so that it can adapt to biome tint.
+	sync Grid registry to clients?
+		could potentially be useful for LODs.
+	middle clicking a waypoint no longer works.
+		this is because all this logic was moved to server-side,
+		and waypoint entities don't exist server-side.
+
+to finish before release:
+	search for "upcoming" in docs and assign specific version, as usual.
+	ensure feature dispatchers for skylands are very distinct from the feature dispatchers for normal terrain.
+	apparently fog has some issues on LODs when your render distance is low and there's a mountain above you.
+	improve "list of features.md" for biomes.
+		currently missing underground biomes.
+		details on how various biomes compare to vanilla counterparts.
+		differences between biomes, where applicable.
+
+high priority:
+	document extra spawn system.
+	document terrainAdaptation.
+	document scripted structures in general.
+	unit tests for assignment-as-an-expression type inference.
+	replace GLException with debug callback?
+		which should also be disabled in production.
+	whitelist which blocks exposed dungeons and spider pits are allowed to spawn on top of.
+	make slingshots able to throw splash/lingering potions.
+	see if I can expose structure information to scripted configured features.
+
+V6:
+	not urgent:
+		LOD renderer improvements:
+			make ingesting work in multiplayer.
+		dynamic block segment types?
+		separate dragon nest for each stronghold?
+			this will probably require some hacks for dragon flight logic.
+			also end crystal spike generation.
+		new positional rock types for nether too?
+		3D structure dispatcher.
+		half (16-bit float) storage mode in NumberArray.
+		expose Fluid and FluidState to scripts, remove BlockState.hasWater(), hasLava(), and hasSoulLava() methods.
+			add setFluidState() to WorldWrapper which modifies waterlogged property.
+			ideally block states and fluid states should be completely separate.
+		remove BigGlobeEntityRenderer.
+		update AutoCodec.
+		remove script templates?
+			replace with custom classes that just take parameters?
+		remove/inline everything in "versions" folder.
+		see if I still need JIJ extraction now that loom just uses implementation().
+		structures:
+			make structure overriders have a filter too, like column value overriders.
+			transition structure max size from chunks to blocks.
+		rename my RandomSource class to RandomSupplier, so as not to conflict with minecraft's RandomSource class.
+		remove deprecated methods from MutableScriptEnvironment.
+		rename JavaUtilScriptEnvironment to JavaUtilExtensions.
+	less urgent:
+		change syntax of weighted random switches:
+			random.switch (
+				weight(1.0: body)
+				weight(0.5: body)
+				weight(0.25: body)
+				default(body)
+			)
+			leave uniform weights alone.
+		test and see if placing a waypoint in the deep dark (or core) causes you to take void damage when entering hyperspace from that waypoint.
+		make it so that you can switch on custom enums.
+		split up BigGlobeItems just like I did with BigGlobeBlocks.
+		pointy mountains.
+		split tree generator:
+			missing decoration:
+				mushroom shelves.
+		exclude mushrooms from deserts and beaches.
+		snow can spawn in deserts.
+		add RGBA32F enum for waypoint uniforms so that I don't have to do horrible bit-packing.
+		remove RegistryOps_MakeAdjustable, functionality exists in vanilla now.
+		change range of temperature.
+			should be -1 = cold, +1 = hot.
+	urgent:
+		surface Y level overriders do not make caves spawn higher if they raise the surface.
+		"frozen" state for objects returned by column values.
+
+islands:
+	floating islands:
+		more rock filler types?
+		caves?
+
+LODs:
+	shader support.
+
+json classes:
+	extra goals:
+		* json-defined interfaces.
+			* interface inheritance.
+			* classes implementing multiple interfaces.
+		* migrate more existing environments to builtin types.
+	non-goals:
+		* messing with classes defined in script source code, like `class Pos(int*(x, y, z))`.
+			* it is a long-term goal of mine to allow method declarations inside such classes, and to allow extending and overriding other script-defined classes eventually, but it's not what I'm talking about in the rest of this wall-of-text.
+	missing builtin types:
+		primitive box classes (Integer, etc.)
+		NBT elements.
+	need to fix:
+
+intellij plugin:
+	`condition ? myDouble : myFloat` is inferred to type primitive_floating_point instead of double.
+	similarly, `BlockState state = condition ? 'stone' : null` is inferred to type Object.
+	incorrect arguments on custom class static methods are not reported as an error.
+
+changelog:
+	# For normal users
+	* Fully re-implemented the "islands" world preset.
+		* Each island has a different type associated with it.
+		* Each island type can be thought of as like a different biome, with a different set of terrain gen parameters.
+	* Performance improvements.
+	* Sand, gravel, and other falling blocks now work differently in Big Globe worlds.
+		* This is because there's sometimes a lot of it underground in cave ceilings, and having it all fall at once is laggy.
+	* Fixed lava replacing blocks that it shouldn't near lava level in the nether.
+	* Dry lakes now only spawn in deserts.
+		* Likewise, non-dry lakes now only spawn outside of deserts.
+	* Minor visual tweak: aura-infused clouds now have AO, like regular clouds do.
+	* Added UNSUPPORTED mixin `ChunkPyramid_ConfigurableFeatureRadius` to expand the max size of configured features.
+		* This mixin may be unstable, and may break things in subtle and hard-to-debug ways.
+		* This mixin will make worldgen noticeably slower when exploring.
+		* This mixin will never be enabled by default.
+		* Nevertheless, it can be used to make my trees spawn correctly in pre-generated worlds, without needing to get near them first, which may be desirable when combined with LODs.
+		* A value of 4 is required for my largest trees. The max value is 8, and the mixin will be completely disabled when set to a negative value or 0.
+		* If you use this mixin, you are not allowed to report bugs with anything to anyone.
+	# For data pack developers
+	* The concept of column restrictions has been replaced with scripts.
+		* This affects flowers, trees with fungal shelves, and rock layers.
+		* Reason: the existing column restriction system was too limited (it didn't even have a dedicated type for world traits), too verbose, slower than it needed to be, and required a lot of maintenance. Scripts are just better in every possible way.
+	* Removed legacy handling of `minecraft:grass` and `minecraft:chain` blocks.
+		* These were renamed in vanilla a long time ago to `minecraft:short_grass` and `minecraft:iron_chain` respectively.
+		* Big Globe would previously accept the old names too, for scripts that needed to work in multiple MC versions.
+		* However, Big Globe no longer supports MC versions where these legacy names were in-use, so support for the legacy names is now removed.
+
+alternate world presets:
+	paradise.
+	oversized.
+		trees, foliage, small rocks, etc... are on a massive scale.
+		no mountains (they won't fit).
+		basically, play minecraft from the perspective of an ant.
+
+breaking changes I want to make:
+	remove alwaysGenerateTheSameWorld config option next time massive breaking changes are made to worldgen logic.
+	perlin grids:
+		migrate permute(seed ^ SALT, x, y, z) to stafford(permute(seed, x, y, z) ^ SALT).
+		then permute(seed, x, y, z) can be cached in a local variable to avoid re-computation.
+		ditto for worley grids.
+		use approx sin for SineWaveGrid2D?
+	expose IntVolume and DoubleVolume to scripts, with min, mid, and max properties.
+		remove min/max Accessible/Modifiable X/Y/Z
+			replace with accessibleArea and modifiableArea.
+		migrate equivalent getters from Structure/StructurePiece.
+		expose intersectionArea for scripted structure pieces specifically.
+		also expose (Int|Double)(Volume|Area|Range).
+			all of these should be iterable with for each loops.
+				for (int*(x, y, z) in volume.xyz: body)
+				for (int*(x, z) in volume.xz: body)
+				for (int y in volume.y: body)
+
+4.0 stuff:
+	/waypoint
+		add <x y z> <dimension> <owner>
+		remove <id>
+		query
+			owner <owner>
+			in <dimension>
+			near <x y z>
+	need to redo scripted noise which uses column values.
+	remove BoundInfo.
+	allow scripts to declare variables with generic types?
+
+AutoCodec:
+	log when extra data is provided that isn't a field of the object being deserialized.
+	allow RecordDecoder to provide DecodeContext to constructors which need it.
+
+scripting:
+	if a script template input declares a function and the template uses $INPUT more than once, this will probably cause problems.
+	fully immutable NBT elements for scripts.
+	immutable user-defined classes for column values.
+		basically I don't want one column value to be able to mutate a different column value.
+	use script debug name in print().
+	SwitchInsnTree needs to manage its case scopes more manually.
+	expose arrays.
+	general-purpose script bytecode optimization framework.
+		more sophisticated flow analysis to see what values could be where at any given time?
+			could help with more advanced constant jumps?
+		more sophisticated back-tracking algorithm for pop removal?
+		remove unnecessary parameters for user-defined functions.
+		auto-const variables:
+			if a local variable has a constant value stored in it,
+			then the variable is loaded again, replace that load with the constant.
+			if all instances of loading this variable are replaced with LDC,
+			then the variable can be removed.
+		duplicate variable elimination:
+			if local variable B has local variable A stored in it,
+			and local variable B is loaded before/without an additional store in A,
+			then LOAD B can be replaced with LOAD A.
+			if all instances of LOAD B can be safely replaced with LOAD A,
+			then B can be removed entirely.
+	more invoke syntaxes:
+		non-null invoke?
+			foo.!bar() requires that bar() return a non-null value.
+		nullable non-null invoke?
+			foo.?!bar() makes a choice:
+				if foo is null, then the result is null and bar() is not invoked.
+				if foo is non-null, then bar() is invoked and is required to return a non-null value.
+	lambdas?
+		Stream API?
+			ability to iterate over a Stream in a for loop (whenever Stream support is added).
+	add copy constructor and clone() for user-defined classes.
+		clone() is deep copy, constructor is shallow copy?
+			this is the more intuitive option, but it is more difficult to implement.
+			due to the fact that you can't assign to final fields inside clone().
+			not that I have final fields yet, but still.
+	smarter detection of which variables are captured by methods.
+		don't capture variables which aren't used.
+	inline getters and setters for user-defined classes.
+	scriptable loot tables.
+	scriptable advancements?
+	.= operator, along with :. and .:
+		applies a function to the lvalue and stores it in the lvalue.
+		example usage: value .= abs
+		more advanced usage:
+			class Empty()
+			int Empty.increment(int value: value + 1)
+			Empty empty = new()
+			value .= empty.increment
+	make fields on InsnTree's final.
+	make it so that constant template inputs remain constants without being turned into variables.
+	random.repeat (float/double times: body)
+		also seed.repeat(...)
+	enhanced type system?
+		Type(attribute1: constant1, attribute2: constant2, ...) defines a full type.
+		ExpressionParser.nextType() will be added as a replacement for environment.getType().
+		need better syntax than Type(...)(expression) for casting.
+		some kind of "type parameters" in TypeInfo.
+		example usage:
+			Array(of: int) array = new(5)
+			HashMap(key: String, value: String) map = new()
+		user-defined classes need thinking about.
+			class Sub(type) extends Super(type: type) (...) is ugly.
+		more advanced usage:
+			Array(of: int, length: 5, null: false) array = new()
+				compile-time checking of lengths and nullability in parameters and stuff.
+			UserType(mutable: false)
+				immutable variants of objects.
+			Array(of: UserType, split: true)
+				compiles
+					class UserType(
+						int a
+						String b
+					)
+				into
+					class UserTypeArray(
+						Array(of: int) a
+						Array(of: String) b
+					)
+			Array(of: int, lengths: (3, 3, 3))
+				compiles into a 1D array indexed via array.(a, b, c).
+				the internal index of the array is (a * length + b) * length + c.
+				iterate via for (int*(a, b, c, value) in array: body)
+		generics for methods... need some thinking on the syntax.
+			generic(type) type List(of: type) whatever(: body)
+		"expose" fastutil collection types.
+			List(of: int) will compile into IntList.
+
+features:
+	general:
+		advancements for finding things?
+		all the todos scattered throughout my code.
+		make charred hanging sign look a bit more programmer art-y?
+		fast DH tree generation
+			skips a lot of the more expensive work for tree generation,
+			and replaces trees with blobs of leaves with a trunk and no branches.
+		make delayed generation features place blocks inside the mutable area immediately for DH chunks.
+	overworld:
+		darkslate:
+			darkslate.
+			infested darkslate.
+			cobbled darkslate.
+				slab.
+				stairs.
+				wall.
+			polished darkslate.
+				slab.
+				stairs.
+				wall.
+			darkslate bricks.
+				cracked.
+				slab.
+				stairs.
+				wall.
+			darkslate tiles.
+				cracked.
+				slab.
+				stairs.
+				wall.
+			chiseled darkslate.
+		ores that mimic the textures of surrounding blocks.
+		make overgrown podzol decay to dirt when there's a block on top of it?
+		big canyons?
+		deep ocean hydrothermal vents?
+			new biome for extremely deep oceans: the abyss.
+		large kelp structure/feature.
+			need a solid kelp block for this.
+		large coral feature?
+		overrider to ensure that the deep dark doesn't break the surface in the abyss.
+		desert fossils.
+		fallen logs.
+		allow flowers to place a Feature for every flower.
+		glaciers:
+			snow/ice castle structure?
+		trees:
+			roots.
+				use for mangrove trees.
+		cave biomes:
+			mushroom:
+				glowing mushrooms?
+					that hang from the ceiling?
+		make geode placement faster by only computing noise in a sphere instead of a cube.
+		more types of geodes/more colors of pretty crystals?
+		dungeons:
+			piles of gold?
+			occasional "big rooms".
+		make lilypads renewable?
+		sandstone house variants?
+			generify WoodPalette into BlockPalette?
+				with "type": "wood" or "type": "generic"?
+		sea shells on the sea shore?
+		clams?
+			pearls?
+				potion ingredient?
+				armor trim?
+		wet sand?
+			does not have gravity.
+			on random tick, if not adjacent to water, turn into regular sand.
+				don't cause block updates in the process, and also don't fall due to gravity.
+			obtainable? TBD.
+			craftable with sand and water buckets? TBD.
+		boulder block.
+	end:
+		asteroids in the void biome.
+		ender clam?
+			source of ender pearls.
+
+porting to newer MC versions:
+	check if ShapedRecipe implements serialization yet.
+		if it does, re-enable code to dump recipes in DumpRegistriesCommand.

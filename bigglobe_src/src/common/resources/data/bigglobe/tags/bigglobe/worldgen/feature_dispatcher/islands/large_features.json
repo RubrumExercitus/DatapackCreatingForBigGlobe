@@ -1,0 +1,13 @@
+{
+	"replace": false,
+	"values": [
+		"bigglobe:overworld/trees",
+		"bigglobe:islands/skyland_trees",
+		"bigglobe:islands/skyland_bottom",
+		"bigglobe:overworld/bushes",
+		"bigglobe:overworld/prismarine",
+		"bigglobe:overworld/small_dungeons",
+		"bigglobe:overworld/swamp_water",
+		"bigglobe:islands/mushrooms"
+	]
+}

@@ -1,0 +1,56 @@
+{
+	"type": "bigglobe:flower",
+	"config": {
+		"seed": "gourds",
+		"can_place_at": "world_traits.`bigglobe:enabled_decorations`.grassyFoliage",
+		"distance": 32,
+		"variation": 32,
+		"spawn_chance": 0.25,
+		"randomize_chance": 0.25,
+		"randomize_radius": { "type": "uniform", "min": 16.0, "max": 32.0 },
+		"noise": {
+			"type": "abs",
+			"grid": {
+				"type": "sum",
+				"layers": [
+					{ "type": "smooth", "scale": 32, "amplitude": 0.125 },
+					{ "type": "smooth", "scale": 16, "amplitude": 0.125 },
+					{ "type": "smooth", "scale":  8, "amplitude": 0.125 },
+					{ "type": "smooth", "scale":  4, "amplitude": 0.125 }
+				]
+			}
+		},
+		"entries": {
+			"defaults": {
+				"weight": 100.0,
+				"radius": { "type": "uniform", "min": 16.0, "max": 32.0 },
+				"under": {
+					"place": "minecraft:farmland",
+					"replace": [
+						"minecraft:dirt",
+						"minecraft:coarse_dirt",
+						"minecraft:grass_block",
+						"minecraft:podzol",
+						"bigglobe:overgrown_podzol"
+					]
+				}
+			},
+			"variations": [
+				{
+					"restrictions": [
+						"(1.0L - fastExp(-16.0L * max(world_traits.`bigglobe:foliage_at`, 0.0L)))",
+						"* (world_traits.`bigglobe:humidity_at` * 0.5L + 0.5L)"
+					],
+					"state": "minecraft:melon_stem"
+				},
+				{
+					"restrictions": [
+						"(1.0L - fastExp(-16.0L * max(world_traits.`bigglobe:foliage_at`, 0.0L)))",
+						"* (world_traits.`bigglobe:humidity_at` * -0.5L + 0.5L)"
+					],
+					"state": "minecraft:pumpkin_stem"
+				}
+			]
+		}
+	}
+}

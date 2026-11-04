@@ -1,0 +1,95 @@
+package builderb0y.bigglobe.classes.spec;
+
+import net.minecraft.core.Holder;
+
+import builderb0y.bigglobe.classes.compile.ClassHierarchy;
+import builderb0y.bigglobe.classes.compile.DetailedException;
+import builderb0y.bigglobe.columns.ExternalEnvironmentParams;
+import builderb0y.scripting.bytecode.MethodInfo;
+import builderb0y.scripting.bytecode.TypeInfo;
+import builderb0y.scripting.environments.Handlers;
+import builderb0y.scripting.parsing.ExpressionParser;
+import builderb0y.scripting.parsing.ExpressionParser.IdentifierName;
+import builderb0y.scripting.parsing.input.ScriptUsage;
+
+import static builderb0y.scripting.bytecode.InsnTrees.*;
+
+public class StaticMethodSpec extends BaseMethodSpec {
+
+	public final @IdentifierName String name;
+	public final Holder<ElementSpec> return_type;
+
+	@Override
+	public TypeSpec returnTypeSpec(ClassHierarchy hierarchy) {
+		return requireType(this.return_type, TypeSpec.class, () -> hierarchy.idOf(this) + " > return_type");
+	}
+
+	public final ParameterSpec[] parameters;
+	public final ScriptUsage code;
+
+	public StaticMethodSpec(
+		Holder<ElementSpec> owner,
+		@IdentifierName String name,
+		Holder<ElementSpec> return_type,
+		ParameterSpec[] parameters,
+		ScriptUsage code
+	) {
+		super(owner);
+		this.name = name;
+		this.return_type = return_type;
+		this.parameters = parameters;
+		this.code = code;
+	}
+
+	@Override
+	public Holder<ElementSpec> getReturnType() {
+		return this.return_type;
+	}
+
+	@Override
+	public ParameterSpec[] getParameters() {
+		return this.parameters;
+	}
+
+	@Override
+	public int accessFlags() {
+		return ACC_PUBLIC | ACC_STATIC;
+	}
+
+	@Override
+	public void verify(ClassHierarchy hierarchy) throws DetailedException {
+		super.verify(hierarchy);
+		this.owner(hierarchy).overrideTracker.addStaticMethod(this);
+	}
+
+	@Override
+	public void setupEnvironment(Holder<ElementSpec> self, ExpressionParser parser, ExternalEnvironmentParams params) {
+		MethodInfo methodInfo = this.context.info;
+		TypeInfo owner = ((TypeSpec)(this.owner.value())).getTypeInfo();
+		parser.environment.mutable().addQualifiedFunction(
+			owner,
+			Handlers.methodWithoutReceiver(methodInfo).onUsed(params.dependencyCallback(self)).buildFunction()
+		);
+	}
+
+	@Override
+	public void compile(ClassHierarchy hierarchy) throws DetailedException {
+		super.compile(hierarchy);
+		this.compile(hierarchy, this.code, null, (ExpressionParser parser) -> {
+			for (ParameterSpec parameter : this.parameters) {
+				if (parameter.import_) {
+					//will automatically add variable to MutableScriptEnvironment.
+					parser.addImportedValue(parameter.name, load(parameter.name, parameter.typeInfo()));
+				}
+				else {
+					parser.environment.mutable().addVariableLoad(parameter.name, parameter.typeInfo());
+				}
+			}
+		});
+	}
+
+	@Override
+	public String name() {
+		return this.name;
+	}
+}

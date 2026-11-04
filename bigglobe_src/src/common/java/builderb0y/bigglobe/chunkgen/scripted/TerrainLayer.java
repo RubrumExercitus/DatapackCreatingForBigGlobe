@@ -1,0 +1,137 @@
+package builderb0y.bigglobe.chunkgen.scripted;
+
+import java.util.stream.Stream;
+import net.minecraft.core.Holder;
+import builderb0y.autocodec.annotations.DefaultEmpty;
+import builderb0y.autocodec.annotations.MemberUsage;
+import builderb0y.autocodec.annotations.UseCoder;
+import builderb0y.autocodec.annotations.VerifyNullable;
+import builderb0y.bigglobe.BigGlobeMod;
+import builderb0y.bigglobe.codecs.CoderRegistry;
+import builderb0y.bigglobe.codecs.CoderRegistryTyped;
+import builderb0y.bigglobe.columns.ColumnScript.ColumnToBooleanScript;
+import builderb0y.bigglobe.columns.ColumnScript.ColumnToIntScript;
+import builderb0y.bigglobe.columns.ScriptedColumn;
+import builderb0y.bigglobe.columns.dependencies.DependencyView;
+import builderb0y.bigglobe.columns.dependencies.DependencyView.SimpleDependencyView;
+
+@UseCoder(name = "REGISTRY", in = TerrainLayer.class, usage = MemberUsage.FIELD_CONTAINS_HANDLER)
+public abstract class TerrainLayer implements CoderRegistryTyped<TerrainLayer>, SimpleDependencyView {
+
+	public static final CoderRegistry<TerrainLayer> REGISTRY = new CoderRegistry<>(BigGlobeMod.modID("scripted_chunk_generator_layer"));
+
+	static {
+		REGISTRY.registerAuto(BigGlobeMod.modID("root"),                   RootTerrainLayer.class);
+		REGISTRY.registerAuto(BigGlobeMod.modID("simple_2d"),          Simple2DTerrainLayer.class);
+		REGISTRY.registerAuto(BigGlobeMod.modID("simple_3d"),          Simple3DTerrainLayer.class);
+		REGISTRY.registerAuto(BigGlobeMod.modID("dynamic_2d"),        Dynamic2DTerrainLayer.class);
+		REGISTRY.registerAuto(BigGlobeMod.modID("dynamic_3d"),        Dynamic3DTerrainLayer.class);
+		REGISTRY.registerAuto(BigGlobeMod.modID("multi_state_3d"), MultiState3DTerrainLayer.class);
+		REGISTRY.registerAuto(BigGlobeMod.modID("scripted"),           ScriptedTerrainLayer.class);
+		REGISTRY.registerAuto(BigGlobeMod.modID("noop"),                   NoopTerrainLayer.class);
+	}
+
+	public final @VerifyNullable Valid valid;
+	public final Holder<TerrainLayer> @DefaultEmpty [] children;
+	public final SurfaceScript.@VerifyNullable Catcher before_children, after_children;
+
+	public TerrainLayer(
+		@VerifyNullable Valid valid,
+		Holder<TerrainLayer> @DefaultEmpty [] children,
+		SurfaceScript.@VerifyNullable Catcher before_children,
+		SurfaceScript.@VerifyNullable Catcher after_children
+	) {
+		this.valid = valid;
+		this.children = children;
+		this.before_children = before_children;
+		this.after_children = after_children;
+	}
+
+	public abstract void buildDependencyStream(Stream.Builder<Holder<? extends DependencyView>> builder);
+
+	@Override
+	public Stream<? extends Holder<? extends DependencyView>> streamDirectDependencies() {
+		Stream.Builder<Holder<? extends DependencyView>> builder = Stream.builder();
+
+		for (Holder<TerrainLayer> child : this.children) {
+			builder.accept(child);
+		}
+		if (this.valid != null) {
+			if (this.valid.where != null) this.valid.where.streamDirectDependencies().forEach(builder);
+			if (this.valid.min_y != null) this.valid.min_y.streamDirectDependencies().forEach(builder);
+			if (this.valid.max_y != null) this.valid.max_y.streamDirectDependencies().forEach(builder);
+		}
+		if (this.before_children != null) this.before_children.streamDirectDependencies().forEach(builder);
+		if (this.after_children != null) this.after_children.streamDirectDependencies().forEach(builder);
+
+		this.buildDependencyStream(builder);
+
+		return builder.build().distinct();
+	}
+
+	public abstract void emitSelfSegments(ScriptedColumn column, BlockSegmentList blocks);
+
+	public void emitSegments(ScriptedColumn column, ScriptedColumn altX, ScriptedColumn altZ, ScriptedColumn altXZ, BlockSegmentList parentSegments) {
+		if (this.validWhere(column)) {
+			BlockSegmentList selfSegments = parentSegments.split();
+			this.emitSelfSegments(column, selfSegments);
+			if (this.before_children != null) {
+				this.before_children.generateSurface(column, altX, altZ, altXZ, selfSegments);
+			}
+			if (this.children.length != 0) {
+				BlockSegmentList split = selfSegments.splitAtPlacedRange();
+				if (split != null) {
+					BlockSegmentList split2 = split.split();
+					for (Holder<TerrainLayer> child : this.children) {
+						child.value().emitSegments(column, altX, altZ, altXZ, split2);
+						split.mergeAndKeepWhereThereArentBlocks(split2);
+						split2.reset();
+					}
+					selfSegments.mergeAndKeepWhereThereAreBlocks(split);
+				}
+			}
+			if (this.after_children != null) {
+				this.after_children.generateSurface(column, altX, altZ, altXZ, selfSegments);
+			}
+			parentSegments.mergeAndKeepEverywhere(selfSegments);
+		}
+	}
+
+	public void emitSegments(ScriptedColumn column, BlockSegmentList parentSegments) {
+		if (this.validWhere(column)) {
+			BlockSegmentList selfSegments = parentSegments.split();
+			this.emitSelfSegments(column, selfSegments);
+			if (this.children.length != 0) {
+				BlockSegmentList split = selfSegments.splitAtPlacedRange();
+				if (split != null) {
+					BlockSegmentList split2 = split.split();
+					for (Holder<TerrainLayer> child : this.children) {
+						child.value().emitSegments(column, split2);
+						split.mergeAndKeepWhereThereArentBlocks(split2);
+						split2.reset();
+					}
+					selfSegments.mergeAndKeepWhereThereAreBlocks(split);
+				}
+			}
+			parentSegments.mergeAndKeepEverywhere(selfSegments);
+		}
+	}
+
+	public boolean validWhere(ScriptedColumn column) {
+		return this.valid == null || this.valid.where == null || this.valid.where.get(column);
+	}
+
+	public int validMinY(ScriptedColumn column) {
+		return this.valid == null || this.valid.min_y == null ? Integer.MIN_VALUE : this.valid.min_y.get(column);
+	}
+
+	public int validMaxY(ScriptedColumn column) {
+		return this.valid == null || this.valid.max_y == null ? Integer.MAX_VALUE : this.valid.max_y.get(column);
+	}
+
+	public static record Valid(
+		ColumnToBooleanScript.@VerifyNullable Catcher where,
+		ColumnToIntScript.@VerifyNullable Catcher min_y,
+		ColumnToIntScript.@VerifyNullable Catcher max_y
+	) {}
+}

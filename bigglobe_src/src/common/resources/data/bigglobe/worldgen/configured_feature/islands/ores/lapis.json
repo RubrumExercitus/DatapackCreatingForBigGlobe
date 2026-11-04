@@ -1,0 +1,27 @@
+{
+	"type": "bigglobe:ore",
+	"config": {
+		"seed": "lapis",
+		"blocks": {
+			"#bigglobe:stone_ore_replaceables":     "minecraft:lapis_ore",
+			"#bigglobe:deepslate_ore_replaceables": "minecraft:deepslate_lapis_ore"
+		},
+		"chance": [
+			"double surface = (",
+				"`bigglobe:islands/type`.is(FloatingIslandType) && y >= 128",
+				"? `bigglobe:islands/type_storage/skyland_processed_y_gradient`.value",
+				": world_traits.`bigglobe:exact_surface_y`",
+			")",
+			"double ground = world_traits.`bigglobe:exact_surface_y`",
+			"double depth = world_traits.`bigglobe:sea_level` - ground",
+			"double result = depth > 0.0L ? unmixLinear(surface - depth, surface, y) : 0.0L",
+			"return(result)"
+		],
+		"radius": {
+			"type": "average",
+			"min": 3.0,
+			"max": 8.0,
+			"average": 4.0
+		}
+	}
+}

@@ -1,0 +1,145 @@
+package builderb0y.bigglobe.scripting.wrappers;
+
+import java.util.AbstractSet;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+import java.util.SequencedSet;
+
+import it.unimi.dsi.fastutil.ints.IntArrays;
+import it.unimi.dsi.fastutil.objects.ObjectArrays;
+import org.jetbrains.annotations.NotNull;
+
+import net.minecraft.util.Mth;
+
+public class ConstantSet<K> extends AbstractSet<K> implements SequencedSet<K> {
+
+	public final K[] keys;
+	public final int[] order;
+
+	@SuppressWarnings("unchecked")
+	public ConstantSet() {
+		this.keys = (K[])(ObjectArrays.EMPTY_ARRAY);
+		this.order = IntArrays.EMPTY_ARRAY;
+	}
+
+	@SuppressWarnings("unchecked")
+	public ConstantSet(Object... args) {
+		int size = args.length;
+		if (size == 0) {
+			this.keys = (K[])(ObjectArrays.EMPTY_ARRAY);
+			this.order = IntArrays.EMPTY_ARRAY;
+			return;
+		}
+		int capacity = Mth.smallestEncompassingPowerOfTwo(size + (size >> 2) + 1);
+		int mask = capacity - 1;
+		Object[] keys = new Object[capacity];
+		int[] order = new int[size];
+		for (int index = 0; index < size; index++) {
+			Object arg = ConstantMap.wrap(args[index]);
+			int position = arg.hashCode();
+			position ^= position >>> 16;
+			position &= mask;
+			while (keys[position] != null) {
+				if (keys[position].equals(arg)) {
+					throw new IllegalArgumentException("Duplicate element: " + arg);
+				}
+				position = (position + 1) & mask;
+			}
+			keys[position] = arg;
+			order[index] = position;
+		}
+		this.keys = (K[])(keys);
+		this.order = order;
+	}
+
+	@Override
+	public int size() {
+		return this.order.length;
+	}
+
+	@Override
+	public boolean contains(Object element) {
+		return this.getPosition(element) >= 0;
+	}
+
+	public int getPosition(Object element) {
+		element = ConstantMap.wrap(element);
+		int position = element.hashCode();
+		position ^= position >>> 16;
+		K[] keys = this.keys;
+		int mask = keys.length - 1;
+		position &= mask;
+		while (keys[position] != null) {
+			if (keys[position].equals(element)) return position;
+			position = (position + 1) & mask;
+		}
+		return -1;
+	}
+
+	@Override
+	public Iterator<K> iterator() {
+		return this.new ConstantSetIterator();
+	}
+
+	@Override
+	public @NotNull SequencedSet<K> reversed() {
+		return this.new ReversedView();
+	}
+
+	public class ConstantSetIterator implements Iterator<K> {
+
+		public int index;
+
+		@Override
+		public boolean hasNext() {
+			return this.index < ConstantSet.this.order.length;
+		}
+
+		@Override
+		public K next() {
+			if (this.index >= ConstantSet.this.order.length) throw new NoSuchElementException();
+			int position = ConstantSet.this.order[this.index++];
+			return ConstantMap.unwrap(ConstantSet.this.keys[position]);
+		}
+	}
+
+	public class ReversedView extends AbstractSet<K> implements SequencedSet<K> {
+
+		@Override
+		public @NotNull SequencedSet<K> reversed() {
+			return ConstantSet.this;
+		}
+
+		@Override
+		public int size() {
+			return ConstantSet.this.size();
+		}
+
+		@Override
+		public Iterator<K> iterator() {
+			return ConstantSet.this.new ReversedIterator();
+		}
+
+		@Override
+		public boolean contains(Object element) {
+			return ConstantSet.this.getPosition(element) >= 0;
+		}
+	}
+
+	public class ReversedIterator implements Iterator<K> {
+
+		public int index = ConstantSet.this.size() - 1;
+
+		@Override
+		public boolean hasNext() {
+			return this.index >= 0;
+		}
+
+		@Override
+		public K next() {
+			if (this.index < 0) throw new NoSuchElementException();
+			int position = ConstantSet.this.order[this.index--];
+			return ConstantMap.unwrap(ConstantSet.this.keys[position]);
+		}
+	}
+}

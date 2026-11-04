@@ -1,0 +1,1504 @@
+{
+	"version": 16,
+	"parameter_sets": {
+		"groups": [
+			{
+				"name": "Global",
+				"selected": "Default",
+				"variations": [
+					"Default"
+				]
+			},
+			{
+				"name": "Inputs",
+				"selected": "Side",
+				"variations": [
+					"Side",
+					"Top",
+					"Cobble",
+					"Chiseled",
+					"Bricks",
+					"Tiles",
+					"Polished"
+				]
+			}
+		]
+	},
+	"layer_graph": {
+		"showing_layer": "gradient",
+		"selected_layer": "gradient",
+		"layers": [
+			{
+				"name": "side",
+				"gridX": 0,
+				"gridY": 0,
+				"width": 16,
+				"height": 16,
+				"sources": {
+					"type": "manual",
+					"clampRGB": {
+						"group": "Global",
+						"variations": {
+							"Default": true
+						}
+					},
+					"clampA": {
+						"group": "Global",
+						"variations": {
+							"Default": true
+						}
+					},
+					"dependencies": {},
+					"image": {
+						"width": 16,
+						"height": 16,
+						"pixels": "H4sIAAAAAAAA/8WXsQ3CUAxEMxj6WYQxGIAq2SOsAX3YAZYI0CN9keYr0ulxNhQuXOTbPt/ZTlmWR/lYf+y6Ms/X1ao/TafVvvIPz1e1YRg3/Tae8mk8N9/d+VJtf7tv+qo+5bfx3XrV+xR/xQ+ar8LTxdvtT3Y/aLwWf9oPlb/C69f1ZvOxzUfh6/KhxZfW78an/IrWN+UD5RedFxRPd75n89fVL92frt7pvRHdn2h+ufqL7gfVQzT+/9az4lu0/ui+VvvF5SvVm6svN162vlU8+j6dB9nz3b2Xs/VB63H/R+n9SOt357niS/Q9Jr5/A3V75rEAEAAA"
+					}
+				},
+				"views": {
+					"type": "flat_clamped",
+					"draw_outline": {
+						"group": "Global",
+						"variations": {
+							"Default": true
+						}
+					},
+					"show_alpha": {
+						"group": "Global",
+						"variations": {
+							"Default": true
+						}
+					},
+					"dependencies": {}
+				}
+			},
+			{
+				"name": "top",
+				"gridX": 0,
+				"gridY": 1,
+				"width": 16,
+				"height": 16,
+				"sources": {
+					"type": "manual",
+					"clampRGB": {
+						"group": "Global",
+						"variations": {
+							"Default": true
+						}
+					},
+					"clampA": {
+						"group": "Global",
+						"variations": {
+							"Default": true
+						}
+					},
+					"dependencies": {},
+					"image": {
+						"width": 16,
+						"height": 16,
+						"pixels": "H4sIAAAAAAAA/72XsQ2DUAxEmYwslQFSkQ1IS3YgO5BNSJ/0kVBoLKTL0x0ULiz+t7/P9tm00/Rsf3K6NE07jo9VFr3vb4sMw31Tr+erXu1TfZ5fq/z1nvP7s0jXXTe/K3/1vrJH8anxqHirXt+j7tfzKr80n8ofxUvl08WL6gofWj9H94vyT+uL9puqtzT+tN9p/EpX+XX5leJB+ZT2R3peuPWR5jPF1y7fuf1N6zeNB/WX3h8o37n40njcfYH2B7Wf3r/S+4KqJzef6v2Kf9Lz2cWD7pd03rp8neZv2m/KP+UPF++97e+9T7jz4uh5lN7X0v8T7ryE/fAFfKzLdwAQAAA="
+					}
+				},
+				"views": {
+					"type": "flat_clamped",
+					"draw_outline": {
+						"group": "Global",
+						"variations": {
+							"Default": true
+						}
+					},
+					"show_alpha": {
+						"group": "Global",
+						"variations": {
+							"Default": true
+						}
+					},
+					"dependencies": {}
+				}
+			},
+			{
+				"name": "cobble",
+				"gridX": 0,
+				"gridY": 2,
+				"width": 16,
+				"height": 16,
+				"sources": {
+					"type": "manual",
+					"clampRGB": {
+						"group": "Global",
+						"variations": {
+							"Default": true
+						}
+					},
+					"clampA": {
+						"group": "Global",
+						"variations": {
+							"Default": true
+						}
+					},
+					"dependencies": {},
+					"image": {
+						"width": 16,
+						"height": 16,
+						"pixels": "H4sIAAAAAAAA/62WsQ3CQAxFM1lYghEYg4I6tKENS4RFEtgANggdSIiT0liRnp58hQsrZ8ff3/53bd9f2r8Nw3V3apo2+vv7o9jh+Sr+NM2rFf/4+RbruvNmfPwe45flvdqmH/ON4221ze8xfzxP8bHeiD8bH/HFeimf7S/VG+sjP/6P8NL82P5Zfqhe6i/xZefL8mH7a/tH+2fnyeKx+IhvqyeEj+bVzi/Ng9UHwkv7YPmtvf9W76l+y4/lL7tvtfcpG2/3n/qX1T/Kb/WE+LF6TvURXpuvtj5m9Y36b/mk81l9tHzU7n92XkkfiR/bD8un3S/SG+I/i9/Wb/WO+Ku9f9n3lX2vWP7sfZd9H9t5iefte5nia88j6Ze8z3/N1ULVABAAAA=="
+					}
+				},
+				"views": {
+					"type": "flat_clamped",
+					"draw_outline": {
+						"group": "Global",
+						"variations": {
+							"Default": true
+						}
+					},
+					"show_alpha": {
+						"group": "Global",
+						"variations": {
+							"Default": true
+						}
+					},
+					"dependencies": {}
+				}
+			},
+			{
+				"name": "chiseled",
+				"gridX": 0,
+				"gridY": 3,
+				"width": 16,
+				"height": 16,
+				"sources": {
+					"type": "manual",
+					"clampRGB": {
+						"group": "Global",
+						"variations": {
+							"Default": true
+						}
+					},
+					"clampA": {
+						"group": "Global",
+						"variations": {
+							"Default": true
+						}
+					},
+					"dependencies": {},
+					"image": {
+						"width": 16,
+						"height": 16,
+						"pixels": "H4sIAAAAAAAA/+VWuw3CUAzMCAxDbRahYBQUFoAmhCaskEhhG5BgE0TEa9wcp7MjAYWLk/LsOzv+2GJ/sLettlVl/4Y394etr7eXTbiud8Um3DRHa9uTdd05BM/t32OkX80Hiq/qZ/17PV7/crwUC8Eofyr/aL4eZ/dTdP1YnK0f/Q8szubn+6vvh2IfYf8+ul7eXzTfb6tXNj91/mf3K7sf2Pmv7rvsfcLmH/FT843iZ+9T1M/o/kFYvUfYeRV9D7HzaO57UNXL9oeqN5u/eg+ieOp9pPY3u5/U76P38Y/hJ3h5gvkAEAAA"
+					}
+				},
+				"views": {
+					"type": "flat_clamped",
+					"draw_outline": {
+						"group": "Global",
+						"variations": {
+							"Default": true
+						}
+					},
+					"show_alpha": {
+						"group": "Global",
+						"variations": {
+							"Default": true
+						}
+					},
+					"dependencies": {}
+				}
+			},
+			{
+				"name": "bricks",
+				"gridX": 0,
+				"gridY": 4,
+				"width": 16,
+				"height": 16,
+				"sources": {
+					"type": "manual",
+					"clampRGB": {
+						"group": "Global",
+						"variations": {
+							"Default": true
+						}
+					},
+					"clampA": {
+						"group": "Global",
+						"variations": {
+							"Default": true
+						}
+					},
+					"dependencies": {},
+					"image": {
+						"width": 16,
+						"height": 16,
+						"pixels": "H4sIAAAAAAAA/9WWsQ3CQAxFMwLDUJtFUjAKCgtAE0ITVggSbBMk2ASEcs1XpK+PfXAULqz4fH72Rd82DGebbLWpKhvHW7K/8LF+9Jtmm+ztL3b7ZB/li/bb9mBdd7S+P4XkQ971/WH1i6+e+HLzI080H7sP+dX5YzyrX70/un+sXpUf34v6vtR6GC/rJ8azepCf9R/zsfzsu9ofNR/GLy/XZLP8jO/XPtbvjUd+jGf9ij6v5ovO79VX9Tz7/0rbH1T9Kk1/v63fXv3x7ju59xe1H975e/cPlderXyp/bh51Pqreq3rM+Nl5tV/qfpHbL23/UPU2tz579wHRfwJ5hus8ABAAAA=="
+					}
+				},
+				"views": {
+					"type": "flat_clamped",
+					"draw_outline": {
+						"group": "Global",
+						"variations": {
+							"Default": true
+						}
+					},
+					"show_alpha": {
+						"group": "Global",
+						"variations": {
+							"Default": true
+						}
+					},
+					"dependencies": {}
+				}
+			},
+			{
+				"name": "brickRegions",
+				"gridX": 0,
+				"gridY": 5,
+				"width": 16,
+				"height": 16,
+				"sources": {
+					"type": "manual",
+					"clampRGB": {
+						"group": "Global",
+						"variations": {
+							"Default": true
+						}
+					},
+					"clampA": {
+						"group": "Global",
+						"variations": {
+							"Default": true
+						}
+					},
+					"dependencies": {},
+					"image": {
+						"width": 16,
+						"height": 16,
+						"pixels": "H4sIAAAAAAAA/+2WMQoAIAwD87P+THy6m2gRcbGCvUCG0KXXJbUqWSZr8Gpe1PVjHgU//PDDn5pfmvrAz3/P4Zb2/fvI/h638un9o/aBH3744c/K7/eJzq//jwYWBy/JABAAAA=="
+					}
+				},
+				"views": {
+					"type": "flat_clamped",
+					"draw_outline": {
+						"group": "Global",
+						"variations": {
+							"Default": true
+						}
+					},
+					"show_alpha": {
+						"group": "Global",
+						"variations": {
+							"Default": true
+						}
+					},
+					"dependencies": {}
+				}
+			},
+			{
+				"name": "tiles",
+				"gridX": 0,
+				"gridY": 6,
+				"width": 16,
+				"height": 16,
+				"sources": {
+					"type": "manual",
+					"clampRGB": {
+						"group": "Global",
+						"variations": {
+							"Default": true
+						}
+					},
+					"clampA": {
+						"group": "Global",
+						"variations": {
+							"Default": true
+						}
+					},
+					"dependencies": {},
+					"image": {
+						"width": 16,
+						"height": 16,
+						"pixels": "H4sIAAAAAAAA/8VXyw3CMAztCAzD2SzCgVFQWQAupb2UFYoE24AEmyAkcrEiPZ6ekxx8eEod+fnz4tr6drefbfZdZx6vjqdkWdzaX72v7w/Jsnj3etv28fxa1n9ZrsmyeBjONo6TzfPlr+/Z+3y86Nznw/PzGOUPxYcwyj+LWT7oPJo/W6/ofCB+LH81flSvaMzqiao3pfVQ1UtVv9R59/Go88v6l57X0nqEMMs/Wp9q17P1/KnxRPNh+ar7ALvvqPuROo9If2q/h7X3n+j+Kx1/tD60fv9r6xXq99L9Ga336v9c7f5U9ZblD+7/AA7nTfQAEAAA"
+					}
+				},
+				"views": {
+					"type": "flat_clamped",
+					"draw_outline": {
+						"group": "Global",
+						"variations": {
+							"Default": true
+						}
+					},
+					"show_alpha": {
+						"group": "Global",
+						"variations": {
+							"Default": true
+						}
+					},
+					"dependencies": {}
+				}
+			},
+			{
+				"name": "tilesRegions",
+				"gridX": 0,
+				"gridY": 7,
+				"width": 16,
+				"height": 16,
+				"sources": {
+					"type": "manual",
+					"clampRGB": {
+						"group": "Global",
+						"variations": {
+							"Default": true
+						}
+					},
+					"clampA": {
+						"group": "Global",
+						"variations": {
+							"Default": true
+						}
+					},
+					"dependencies": {},
+					"image": {
+						"width": 16,
+						"height": 16,
+						"pixels": "H4sIAAAAAAAA/+2RQRIAEAhFu5mrObodqWZo0cj0bcxL0RPRWq3Ttiowj92wVd8+Yqt/D1v1mfzgD3+Pf3XmM37BVn/RO38P/rX9wZq9c1T1JPKTM/zhz/uvyPI/onnGxLmX1X1d5B84yu8X/wFkTVp3ABAAAA=="
+					}
+				},
+				"views": {
+					"type": "flat_clamped",
+					"draw_outline": {
+						"group": "Global",
+						"variations": {
+							"Default": true
+						}
+					},
+					"show_alpha": {
+						"group": "Global",
+						"variations": {
+							"Default": true
+						}
+					},
+					"dependencies": {}
+				}
+			},
+			{
+				"name": "polished",
+				"gridX": 0,
+				"gridY": 8,
+				"width": 16,
+				"height": 16,
+				"sources": {
+					"type": "manual",
+					"clampRGB": {
+						"group": "Global",
+						"variations": {
+							"Default": true
+						}
+					},
+					"clampA": {
+						"group": "Global",
+						"variations": {
+							"Default": true
+						}
+					},
+					"dependencies": {},
+					"image": {
+						"width": 16,
+						"height": 16,
+						"pixels": "H4sIAAAAAAAA/82XvQ3CQAyFMwLDUJtFUjAKCgtAE0ITVggSbBMk2AQU5Ror0seTL4TCxdPZ57/ni2N9/7BRNruisCjuumuSn9iTvj9f3+5JvtInXNcna5qzte1lwFW1TzLg7fNl5ef+crzf66v+yD/haP6Ur8feH8UXrQfFS/n7+NX6Uj2IHx77eOmc9FeHY5LJ/NV+LN1P0ic++vzV+qr9zh0/xePPff/JH/FVnRe1PlFM9Yi+d3Pz3fuL2hP/5+6XWm/Pt+h7lHv+aR7Uecrtj+Zf/f7Nze/ovkT9V/OPzl90f8qdP/Ff5Vt0X6H9R50nmh/1/f+3/kbjUd//3P6W/h+g/Yfi9faqPmHVPujvDY41GLcAEAAA"
+					}
+				},
+				"views": {
+					"type": "flat_clamped",
+					"draw_outline": {
+						"group": "Global",
+						"variations": {
+							"Default": true
+						}
+					},
+					"show_alpha": {
+						"group": "Global",
+						"variations": {
+							"Default": true
+						}
+					},
+					"dependencies": {}
+				}
+			},
+			{
+				"name": "polishedRegions",
+				"gridX": 0,
+				"gridY": 9,
+				"width": 16,
+				"height": 16,
+				"sources": {
+					"type": "manual",
+					"clampRGB": {
+						"group": "Global",
+						"variations": {
+							"Default": true
+						}
+					},
+					"clampA": {
+						"group": "Global",
+						"variations": {
+							"Default": true
+						}
+					},
+					"dependencies": {},
+					"image": {
+						"width": 16,
+						"height": 16,
+						"pixels": "H4sIAAAAAAAA/7NvYGCwH0mYAQnjUAMDw5GPDEb9P+r/Uf+P+n/U/6P+H/X/4HDfqP9py0cGo/4f9f+o/0e4/xkYUPqD6PLDnQ8AOVI1PQAQAAA="
+					}
+				},
+				"views": {
+					"type": "flat_clamped",
+					"draw_outline": {
+						"group": "Global",
+						"variations": {
+							"Default": true
+						}
+					},
+					"show_alpha": {
+						"group": "Global",
+						"variations": {
+							"Default": true
+						}
+					},
+					"dependencies": {}
+				}
+			},
+			{
+				"name": "sideDetail",
+				"gridX": 1,
+				"gridY": 0,
+				"width": 16,
+				"height": 16,
+				"sources": {
+					"type": "convolve",
+					"clampRGB": {
+						"group": "Global",
+						"variations": {
+							"Default": true
+						}
+					},
+					"clampA": {
+						"group": "Global",
+						"variations": {
+							"Default": true
+						}
+					},
+					"linear": {
+						"group": "Global",
+						"variations": {
+							"Default": false
+						}
+					},
+					"bounds": {
+						"group": "Global",
+						"variations": {
+							"Default": {
+								"horizontal": "CLAMP",
+								"vertical": "CLAMP"
+							}
+						}
+					},
+					"normalize": {
+						"group": "Global",
+						"variations": {
+							"Default": true
+						}
+					},
+					"alpha_weighting": {
+						"group": "Global",
+						"variations": {
+							"Default": true
+						}
+					},
+					"weights": {
+						"group": "Inputs",
+						"variations": {
+							"Top": {
+								"shape": "SQUARE",
+								"preset": "MANUAL",
+								"radius": 1,
+								"weights": [
+									{ "x": -1, "y": -1, "weight": 1.0 },
+									{ "x": 0, "y": -1, "weight": 4.0 },
+									{ "x": 1, "y": -1, "weight": 1.0 },
+									{ "x": -1, "y": 0, "weight": 4.0 },
+									{ "x": 0, "y": 0, "weight": 16.0 },
+									{ "x": 1, "y": 0, "weight": 4.0 },
+									{ "x": -1, "y": 1, "weight": 1.0 },
+									{ "x": 0, "y": 1, "weight": 4.0 },
+									{ "x": 1, "y": 1, "weight": 1.0 }
+								]
+							},
+							"Polished": {
+								"shape": "SQUARE",
+								"preset": "MANUAL",
+								"radius": 1,
+								"weights": [
+									{ "x": -1, "y": -1, "weight": 1.0 },
+									{ "x": 0, "y": -1, "weight": 4.0 },
+									{ "x": 1, "y": -1, "weight": 1.0 },
+									{ "x": -1, "y": 0, "weight": 16.0 },
+									{ "x": 0, "y": 0, "weight": 64.0 },
+									{ "x": 1, "y": 0, "weight": 16.0 },
+									{ "x": -1, "y": 1, "weight": 1.0 },
+									{ "x": 0, "y": 1, "weight": 4.0 },
+									{ "x": 1, "y": 1, "weight": 1.0 }
+								]
+							},
+							"Chiseled": {
+								"shape": "SQUARE",
+								"preset": "MANUAL",
+								"radius": 1,
+								"weights": [
+									{ "x": -1, "y": -1, "weight": 1.0 },
+									{ "x": 0, "y": -1, "weight": 8.0 },
+									{ "x": 1, "y": -1, "weight": 1.0 },
+									{ "x": -1, "y": 0, "weight": 8.0 },
+									{ "x": 0, "y": 0, "weight": 64.0 },
+									{ "x": 1, "y": 0, "weight": 8.0 },
+									{ "x": -1, "y": 1, "weight": 1.0 },
+									{ "x": 0, "y": 1, "weight": 8.0 },
+									{ "x": 1, "y": 1, "weight": 1.0 }
+								]
+							},
+							"Side": {
+								"shape": "SQUARE",
+								"preset": "MANUAL",
+								"radius": 1,
+								"weights": [
+									{ "x": -1, "y": -1, "weight": 1.0 },
+									{ "x": 0, "y": -1, "weight": 4.0 },
+									{ "x": 1, "y": -1, "weight": 1.0 },
+									{ "x": -1, "y": 0, "weight": 16.0 },
+									{ "x": 0, "y": 0, "weight": 64.0 },
+									{ "x": 1, "y": 0, "weight": 16.0 },
+									{ "x": -1, "y": 1, "weight": 1.0 },
+									{ "x": 0, "y": 1, "weight": 4.0 },
+									{ "x": 1, "y": 1, "weight": 1.0 }
+								]
+							},
+							"Cobble": {
+								"shape": "SQUARE",
+								"preset": "MANUAL",
+								"radius": 1,
+								"weights": [
+									{ "x": -1, "y": -1, "weight": 1.0 },
+									{ "x": 0, "y": -1, "weight": 4.0 },
+									{ "x": 1, "y": -1, "weight": 1.0 },
+									{ "x": -1, "y": 0, "weight": 4.0 },
+									{ "x": 0, "y": 0, "weight": 16.0 },
+									{ "x": 1, "y": 0, "weight": 4.0 },
+									{ "x": -1, "y": 1, "weight": 1.0 },
+									{ "x": 0, "y": 1, "weight": 4.0 },
+									{ "x": 1, "y": 1, "weight": 1.0 }
+								]
+							},
+							"Tiles": {
+								"shape": "SQUARE",
+								"preset": "MANUAL",
+								"radius": 1,
+								"weights": [
+									{ "x": -1, "y": -1, "weight": 1.0 },
+									{ "x": 0, "y": -1, "weight": 4.0 },
+									{ "x": 1, "y": -1, "weight": 1.0 },
+									{ "x": -1, "y": 0, "weight": 16.0 },
+									{ "x": 0, "y": 0, "weight": 64.0 },
+									{ "x": 1, "y": 0, "weight": 16.0 },
+									{ "x": -1, "y": 1, "weight": 1.0 },
+									{ "x": 0, "y": 1, "weight": 4.0 },
+									{ "x": 1, "y": 1, "weight": 1.0 }
+								]
+							},
+							"Bricks": {
+								"shape": "SQUARE",
+								"preset": "MANUAL",
+								"radius": 1,
+								"weights": [
+									{ "x": -1, "y": -1, "weight": 1.0 },
+									{ "x": 0, "y": -1, "weight": 4.0 },
+									{ "x": 1, "y": -1, "weight": 1.0 },
+									{ "x": -1, "y": 0, "weight": 16.0 },
+									{ "x": 0, "y": 0, "weight": 64.0 },
+									{ "x": 1, "y": 0, "weight": 16.0 },
+									{ "x": -1, "y": 1, "weight": 1.0 },
+									{ "x": 0, "y": 1, "weight": 4.0 },
+									{ "x": 1, "y": 1, "weight": 1.0 }
+								]
+							}
+						}
+					},
+					"dependencies": {
+						"regions": {
+							"input": {
+								"group": "Global",
+								"variations": {
+									"Default": {
+										"type": "color",
+										"color": [ 1.0, 1.0, 1.0, 1.0 ]
+									}
+								}
+							}
+						},
+						"main": {
+							"input": {
+								"group": "Inputs",
+								"variations": {
+									"Top": {
+										"type": "layer",
+										"layer": "top"
+									},
+									"Polished": {
+										"type": "layer",
+										"layer": "side"
+									},
+									"Chiseled": {
+										"type": "layer",
+										"layer": "chiseled"
+									},
+									"Side": {
+										"type": "layer",
+										"layer": "side"
+									},
+									"Cobble": {
+										"type": "layer",
+										"layer": "cobble"
+									},
+									"Tiles": {
+										"type": "layer",
+										"layer": "side"
+									},
+									"Bricks": {
+										"type": "layer",
+										"layer": "side"
+									}
+								}
+							}
+						},
+						"mask": {
+							"input": {
+								"group": "Global",
+								"variations": {
+									"Default": {
+										"type": "color",
+										"color": [ 1.0, 1.0, 1.0, 1.0 ]
+									}
+								}
+							}
+						}
+					}
+				},
+				"views": {
+					"type": "flat_clamped",
+					"draw_outline": {
+						"group": "Global",
+						"variations": {
+							"Default": true
+						}
+					},
+					"show_alpha": {
+						"group": "Global",
+						"variations": {
+							"Default": true
+						}
+					},
+					"dependencies": {}
+				}
+			},
+			{
+				"name": "brickDetail",
+				"gridX": 1,
+				"gridY": 4,
+				"width": 16,
+				"height": 16,
+				"sources": {
+					"type": "convolve",
+					"clampRGB": {
+						"group": "Global",
+						"variations": {
+							"Default": true
+						}
+					},
+					"clampA": {
+						"group": "Global",
+						"variations": {
+							"Default": true
+						}
+					},
+					"linear": {
+						"group": "Global",
+						"variations": {
+							"Default": false
+						}
+					},
+					"bounds": {
+						"group": "Global",
+						"variations": {
+							"Default": {
+								"horizontal": "WRAP",
+								"vertical": "WRAP"
+							}
+						}
+					},
+					"normalize": {
+						"group": "Global",
+						"variations": {
+							"Default": true
+						}
+					},
+					"alpha_weighting": {
+						"group": "Global",
+						"variations": {
+							"Default": true
+						}
+					},
+					"weights": {
+						"group": "Global",
+						"variations": {
+							"Default": {
+								"shape": "SQUARE",
+								"preset": "MANUAL",
+								"radius": 1,
+								"weights": [
+									{ "x": -1, "y": -1, "weight": 1.0 },
+									{ "x": 0, "y": -1, "weight": 4.0 },
+									{ "x": 1, "y": -1, "weight": 1.0 },
+									{ "x": -1, "y": 0, "weight": 4.0 },
+									{ "x": 0, "y": 0, "weight": 16.0 },
+									{ "x": 1, "y": 0, "weight": 4.0 },
+									{ "x": -1, "y": 1, "weight": 1.0 },
+									{ "x": 0, "y": 1, "weight": 4.0 },
+									{ "x": 1, "y": 1, "weight": 1.0 }
+								]
+							}
+						}
+					},
+					"dependencies": {
+						"regions": {
+							"input": {
+								"group": "Global",
+								"variations": {
+									"Default": {
+										"type": "layer",
+										"layer": "brickRegions"
+									}
+								}
+							}
+						},
+						"main": {
+							"input": {
+								"group": "Global",
+								"variations": {
+									"Default": {
+										"type": "layer",
+										"layer": "bricks"
+									}
+								}
+							}
+						},
+						"mask": {
+							"input": {
+								"group": "Global",
+								"variations": {
+									"Default": {
+										"type": "color",
+										"color": [ 1.0, 1.0, 1.0, 1.0 ]
+									}
+								}
+							}
+						}
+					}
+				},
+				"views": {
+					"type": "flat_clamped",
+					"draw_outline": {
+						"group": "Global",
+						"variations": {
+							"Default": true
+						}
+					},
+					"show_alpha": {
+						"group": "Global",
+						"variations": {
+							"Default": true
+						}
+					},
+					"dependencies": {}
+				}
+			},
+			{
+				"name": "tilesDetail",
+				"gridX": 1,
+				"gridY": 6,
+				"width": 16,
+				"height": 16,
+				"sources": {
+					"type": "convolve",
+					"clampRGB": {
+						"group": "Global",
+						"variations": {
+							"Default": true
+						}
+					},
+					"clampA": {
+						"group": "Global",
+						"variations": {
+							"Default": true
+						}
+					},
+					"linear": {
+						"group": "Global",
+						"variations": {
+							"Default": false
+						}
+					},
+					"bounds": {
+						"group": "Global",
+						"variations": {
+							"Default": {
+								"horizontal": "WRAP",
+								"vertical": "WRAP"
+							}
+						}
+					},
+					"normalize": {
+						"group": "Global",
+						"variations": {
+							"Default": true
+						}
+					},
+					"alpha_weighting": {
+						"group": "Global",
+						"variations": {
+							"Default": true
+						}
+					},
+					"weights": {
+						"group": "Global",
+						"variations": {
+							"Default": {
+								"shape": "SQUARE",
+								"preset": "MANUAL",
+								"radius": 1,
+								"weights": [
+									{ "x": -1, "y": -1, "weight": 1.0 },
+									{ "x": 0, "y": -1, "weight": 4.0 },
+									{ "x": 1, "y": -1, "weight": 1.0 },
+									{ "x": -1, "y": 0, "weight": 4.0 },
+									{ "x": 0, "y": 0, "weight": 16.0 },
+									{ "x": 1, "y": 0, "weight": 4.0 },
+									{ "x": -1, "y": 1, "weight": 1.0 },
+									{ "x": 0, "y": 1, "weight": 4.0 },
+									{ "x": 1, "y": 1, "weight": 1.0 }
+								]
+							}
+						}
+					},
+					"dependencies": {
+						"regions": {
+							"input": {
+								"group": "Global",
+								"variations": {
+									"Default": {
+										"type": "layer",
+										"layer": "tilesRegions"
+									}
+								}
+							}
+						},
+						"main": {
+							"input": {
+								"group": "Global",
+								"variations": {
+									"Default": {
+										"type": "layer",
+										"layer": "tiles"
+									}
+								}
+							}
+						},
+						"mask": {
+							"input": {
+								"group": "Global",
+								"variations": {
+									"Default": {
+										"type": "color",
+										"color": [ 1.0, 1.0, 1.0, 1.0 ]
+									}
+								}
+							}
+						}
+					}
+				},
+				"views": {
+					"type": "flat_clamped",
+					"draw_outline": {
+						"group": "Global",
+						"variations": {
+							"Default": true
+						}
+					},
+					"show_alpha": {
+						"group": "Global",
+						"variations": {
+							"Default": true
+						}
+					},
+					"dependencies": {}
+				}
+			},
+			{
+				"name": "polishedDetail",
+				"gridX": 1,
+				"gridY": 8,
+				"width": 16,
+				"height": 16,
+				"sources": {
+					"type": "convolve",
+					"clampRGB": {
+						"group": "Global",
+						"variations": {
+							"Default": true
+						}
+					},
+					"clampA": {
+						"group": "Global",
+						"variations": {
+							"Default": true
+						}
+					},
+					"linear": {
+						"group": "Global",
+						"variations": {
+							"Default": false
+						}
+					},
+					"bounds": {
+						"group": "Global",
+						"variations": {
+							"Default": {
+								"horizontal": "WRAP",
+								"vertical": "WRAP"
+							}
+						}
+					},
+					"normalize": {
+						"group": "Global",
+						"variations": {
+							"Default": true
+						}
+					},
+					"alpha_weighting": {
+						"group": "Global",
+						"variations": {
+							"Default": true
+						}
+					},
+					"weights": {
+						"group": "Global",
+						"variations": {
+							"Default": {
+								"shape": "SQUARE",
+								"preset": "MANUAL",
+								"radius": 1,
+								"weights": [
+									{ "x": -1, "y": -1, "weight": 1.0 },
+									{ "x": 0, "y": -1, "weight": 2.0 },
+									{ "x": 1, "y": -1, "weight": 1.0 },
+									{ "x": -1, "y": 0, "weight": 4.0 },
+									{ "x": 0, "y": 0, "weight": 16.0 },
+									{ "x": 1, "y": 0, "weight": 4.0 },
+									{ "x": -1, "y": 1, "weight": 1.0 },
+									{ "x": 0, "y": 1, "weight": 2.0 },
+									{ "x": 1, "y": 1, "weight": 1.0 }
+								]
+							}
+						}
+					},
+					"dependencies": {
+						"regions": {
+							"input": {
+								"group": "Global",
+								"variations": {
+									"Default": {
+										"type": "layer",
+										"layer": "polishedRegions"
+									}
+								}
+							}
+						},
+						"main": {
+							"input": {
+								"group": "Global",
+								"variations": {
+									"Default": {
+										"type": "layer",
+										"layer": "polished"
+									}
+								}
+							}
+						},
+						"mask": {
+							"input": {
+								"group": "Global",
+								"variations": {
+									"Default": {
+										"type": "color",
+										"color": [ 1.0, 1.0, 1.0, 1.0 ]
+									}
+								}
+							}
+						}
+					}
+				},
+				"views": {
+					"type": "flat_clamped",
+					"draw_outline": {
+						"group": "Global",
+						"variations": {
+							"Default": true
+						}
+					},
+					"show_alpha": {
+						"group": "Global",
+						"variations": {
+							"Default": true
+						}
+					},
+					"dependencies": {}
+				}
+			},
+			{
+				"name": "normalize",
+				"gridX": 2,
+				"gridY": 0,
+				"width": 16,
+				"height": 16,
+				"sources": {
+					"type": "normalize",
+					"clampRGB": {
+						"group": "Global",
+						"variations": {
+							"Default": true
+						}
+					},
+					"clampA": {
+						"group": "Global",
+						"variations": {
+							"Default": true
+						}
+					},
+					"per_channel": {
+						"group": "Global",
+						"variations": {
+							"Default": true
+						}
+					},
+					"dependencies": {
+						"main": {
+							"input": {
+								"group": "Inputs",
+								"variations": {
+									"Top": {
+										"type": "layer",
+										"layer": "sideDetail"
+									},
+									"Polished": {
+										"type": "layer",
+										"layer": "polishedDetail"
+									},
+									"Chiseled": {
+										"type": "layer",
+										"layer": "sideDetail"
+									},
+									"Side": {
+										"type": "layer",
+										"layer": "sideDetail"
+									},
+									"Cobble": {
+										"type": "layer",
+										"layer": "sideDetail"
+									},
+									"Tiles": {
+										"type": "layer",
+										"layer": "tilesDetail"
+									},
+									"Bricks": {
+										"type": "layer",
+										"layer": "brickDetail"
+									}
+								}
+							}
+						},
+						"mask": {
+							"input": {
+								"group": "Global",
+								"variations": {
+									"Default": {
+										"type": "color",
+										"color": [ 1.0, 1.0, 1.0, 1.0 ]
+									}
+								}
+							}
+						}
+					}
+				},
+				"views": {
+					"type": "flat_clamped",
+					"draw_outline": {
+						"group": "Global",
+						"variations": {
+							"Default": true
+						}
+					},
+					"show_alpha": {
+						"group": "Global",
+						"variations": {
+							"Default": true
+						}
+					},
+					"dependencies": {}
+				}
+			},
+			{
+				"name": "gray",
+				"gridX": 3,
+				"gridY": 0,
+				"width": 16,
+				"height": 16,
+				"sources": {
+					"type": "gradient_remap",
+					"clampRGB": {
+						"group": "Global",
+						"variations": {
+							"Default": true
+						}
+					},
+					"clampA": {
+						"group": "Global",
+						"variations": {
+							"Default": true
+						}
+					},
+					"per_channel": {
+						"group": "Global",
+						"variations": {
+							"Default": false
+						}
+					},
+					"preserve_alpha": {
+						"group": "Global",
+						"variations": {
+							"Default": false
+						}
+					},
+					"dependencies": {
+						"from_start": {
+							"input": {
+								"group": "Global",
+								"variations": {
+									"Default": {
+										"type": "color",
+										"color": [ 0.0, 0.0, 0.0, 1.0 ]
+									}
+								}
+							}
+						},
+						"from_end": {
+							"input": {
+								"group": "Global",
+								"variations": {
+									"Default": {
+										"type": "color",
+										"color": [ 1.0, 1.0, 1.0, 1.0 ]
+									}
+								}
+							}
+						},
+						"main": {
+							"input": {
+								"group": "Global",
+								"variations": {
+									"Default": {
+										"type": "layer",
+										"layer": "normalize"
+									}
+								}
+							}
+						},
+						"to_end": {
+							"input": {
+								"group": "Global",
+								"variations": {
+									"Default": {
+										"type": "color",
+										"color": [ 1.0, 1.0, 1.0, 1.0 ]
+									}
+								}
+							}
+						},
+						"to_start": {
+							"input": {
+								"group": "Global",
+								"variations": {
+									"Default": {
+										"type": "color",
+										"color": [ 0.0, 0.0, 0.0, 1.0 ]
+									}
+								}
+							}
+						},
+						"mask": {
+							"input": {
+								"group": "Global",
+								"variations": {
+									"Default": {
+										"type": "color",
+										"color": [ 1.0, 1.0, 1.0, 1.0 ]
+									}
+								}
+							}
+						}
+					}
+				},
+				"views": {
+					"type": "flat_clamped",
+					"draw_outline": {
+						"group": "Global",
+						"variations": {
+							"Default": true
+						}
+					},
+					"show_alpha": {
+						"group": "Global",
+						"variations": {
+							"Default": true
+						}
+					},
+					"dependencies": {}
+				}
+			},
+			{
+				"name": "gradient",
+				"gridX": 4,
+				"gridY": 0,
+				"width": 16,
+				"height": 16,
+				"sources": {
+					"type": "gradient_remap",
+					"clampRGB": {
+						"group": "Global",
+						"variations": {
+							"Default": true
+						}
+					},
+					"clampA": {
+						"group": "Global",
+						"variations": {
+							"Default": true
+						}
+					},
+					"per_channel": {
+						"group": "Global",
+						"variations": {
+							"Default": false
+						}
+					},
+					"preserve_alpha": {
+						"group": "Global",
+						"variations": {
+							"Default": false
+						}
+					},
+					"dependencies": {
+						"from_start": {
+							"input": {
+								"group": "Global",
+								"variations": {
+									"Default": {
+										"type": "color",
+										"color": [ 0.0, 0.0, 0.0, 1.0 ]
+									}
+								}
+							}
+						},
+						"from_end": {
+							"input": {
+								"group": "Global",
+								"variations": {
+									"Default": {
+										"type": "color",
+										"color": [ 1.0, 1.0, 1.0, 1.0 ]
+									}
+								}
+							}
+						},
+						"main": {
+							"input": {
+								"group": "Global",
+								"variations": {
+									"Default": {
+										"type": "layer",
+										"layer": "gray"
+									}
+								}
+							}
+						},
+						"to_end": {
+							"input": {
+								"group": "Global",
+								"variations": {
+									"Default": {
+										"type": "color",
+										"color": [ 0.25, 0.3125, 0.375, 1.0 ]
+									}
+								}
+							}
+						},
+						"to_start": {
+							"input": {
+								"group": "Global",
+								"variations": {
+									"Default": {
+										"type": "color",
+										"color": [ 0.0, 0.0625, 0.125, 1.0 ]
+									}
+								}
+							}
+						},
+						"mask": {
+							"input": {
+								"group": "Global",
+								"variations": {
+									"Default": {
+										"type": "color",
+										"color": [ 1.0, 1.0, 1.0, 1.0 ]
+									}
+								}
+							}
+						}
+					}
+				},
+				"views": {
+					"type": "flat_clamped",
+					"draw_outline": {
+						"group": "Global",
+						"variations": {
+							"Default": true
+						}
+					},
+					"show_alpha": {
+						"group": "Global",
+						"variations": {
+							"Default": true
+						}
+					},
+					"dependencies": {}
+				}
+			},
+			{
+				"name": "brighterDebug",
+				"gridX": 5,
+				"gridY": 0,
+				"width": 16,
+				"height": 16,
+				"sources": {
+					"type": "cliff",
+					"clampRGB": {
+						"group": "Global",
+						"variations": {
+							"Default": true
+						}
+					},
+					"clampA": {
+						"group": "Global",
+						"variations": {
+							"Default": true
+						}
+					},
+					"dual": {
+						"group": "Global",
+						"variations": {
+							"Default": false
+						}
+					},
+					"linear": {
+						"group": "Global",
+						"variations": {
+							"Default": true
+						}
+					},
+					"dependencies": {
+						"strength": {
+							"input": {
+								"group": "Global",
+								"variations": {
+									"Default": {
+										"type": "color",
+										"color": [ 0.75, 0.75, 0.75, 0.5 ]
+									}
+								}
+							}
+						},
+						"midpoint": {
+							"input": {
+								"group": "Global",
+								"variations": {
+									"Default": {
+										"type": "color",
+										"color": [ 0.5, 0.5, 0.5, 0.5 ]
+									}
+								}
+							}
+						},
+						"main": {
+							"input": {
+								"group": "Global",
+								"variations": {
+									"Default": {
+										"type": "layer",
+										"layer": "gradient"
+									}
+								}
+							}
+						},
+						"mask": {
+							"input": {
+								"group": "Global",
+								"variations": {
+									"Default": {
+										"type": "color",
+										"color": [ 1.0, 1.0, 1.0, 1.0 ]
+									}
+								}
+							}
+						}
+					}
+				},
+				"views": {
+					"type": "flat_clamped",
+					"draw_outline": {
+						"group": "Global",
+						"variations": {
+							"Default": true
+						}
+					},
+					"show_alpha": {
+						"group": "Global",
+						"variations": {
+							"Default": true
+						}
+					},
+					"dependencies": {}
+				}
+			}
+		]
+	},
+	"animation": {
+		"frames": 1
+	}
+}

@@ -1,0 +1,51 @@
+{
+	"type": "scripted",
+	"script": [
+		"int minFillY = world_traits.`bigglobe:min_y`",
+		"int maxFillY = world_traits.`bigglobe:y_level_on_surface`",
+		"BlockState getState(int fakeY:",
+			"`bigglobe:overworld/rocks/filler`(fakeY)",
+		")",
+		"if (hints.isLod:",
+			"BlockState state = getState(world_traits.`bigglobe:y_level_in_surface`)",
+			"setBlockStates(minFillY, maxFillY, state)",
+		")",
+		"else (",
+			"BlockState prevState = getState(minFillY)",
+			"int prevY = minFillY",
+			"for (int y in range[minFillY, maxFillY):",
+				"BlockState nextState = getState(y)",
+				"if (nextState != prevState:",
+					"setBlockStates(prevY, y, prevState)",
+					"prevY = y",
+					"prevState = nextState",
+				")",
+			")",
+			"setBlockStates(prevY, maxFillY, prevState)",
+		")"
+	],
+	"after_children": {
+		"includes": [
+			"bigglobe:world_preset/overworld_dh_glacier_placement",
+			"bigglobe:include/generate_snow"
+		],
+		"source": [
+			"int surfaceY = world_traits.`bigglobe:y_level_on_surface`",
+			"if (world_traits.`bigglobe:exact_surface_y` > world_traits.`bigglobe:sea_level` && columnSeed(16xD8C346BDF1997FC2UL).nextBoolean(world_traits.`bigglobe:snow_chance`):",
+				"generateSnow(surfaceY, world_traits.`bigglobe:snow_y`)",
+			")"
+		]
+	},
+	"valid": {
+		"max_y": "world_traits.`bigglobe:y_level_on_surface`",
+		"min_y": "world_traits.`bigglobe:min_y`"
+	},
+	"children": [
+		"bigglobe:overworld/core_carver",
+		"bigglobe:overworld/deep_dark_carver",
+		"bigglobe:overworld/chasm_carver",
+		"bigglobe:overworld/cave_carver",
+		"bigglobe:overworld/surface",
+		"bigglobe:overworld/terracotta"
+	]
+}

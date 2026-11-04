@@ -1,0 +1,76 @@
+{
+	"dimensions": {
+		"minecraft:overworld": {
+			"type": "bigglobe:overworld",
+			"generator": {
+				"type": "bigglobe:scripted",
+				"reload_preset": "islands",
+				"reload_dimension": "minecraft:overworld",
+				"biome_source": {
+					"type": "bigglobe:scripted",
+					"script": "world_traits.`bigglobe:biome`",
+					"all_possible_biomes": "#bigglobe:all_islands"
+				},
+				"height": {
+					"min_y": -1024,
+					"max_y":  1024,
+					"sea_level": 0
+				},
+				"world_traits": "bigglobe:islands",
+				"layer": "bigglobe:islands/root",
+				"feature_dispatcher": {
+					"rock_replacers": [
+						"bigglobe:overworld/bedrock",
+						"bigglobe:overworld/cobblestone_sprinkle",
+						"#bigglobe:islands/ores"
+					],
+					"raw": "bigglobe:islands/raw_root",
+					"normal": "bigglobe:islands/normal_root"
+				},
+				"overriders": "#bigglobe:islands",
+				"game_mechanics": {
+					"spawn_point": {
+						"file": "bigglobe:world_preset/islands_spawn_point"
+					},
+					"mob_spawn_tweakers": "#bigglobe:islands",
+					"colors": {
+						"grass": {
+							"source": "computeBiomeTint(false, 0.0I)",
+							"includes": "bigglobe:include/biome_tint"
+						},
+						"foliage": {
+							"source": "computeBiomeTint(true, 0.0I)",
+							"includes": "bigglobe:include/biome_tint"
+						},
+						"water": [
+							"double temperature = 1.0L / (fastExp(-4.0L * world_traits.`bigglobe:temperature_at`) + 1.0L)",
+							"double mushroom = `bigglobe:islands/type`.is(MushroomIslandType) ? `bigglobe:islands/property_fade` : 0.0L",
+							"packD(0.125L + mushroom * 0.5L, temperature * 0.5L + 0.25L, 1.0L)"
+						]
+					},
+					"grass_bonemeal_feature": "bigglobe:overworld/grass_bonemeal",
+					"alt_block_falling_logic": true,
+					"sound_modifier": {
+						"file": "bigglobe:world_preset/islands_sound_modifier"
+					}
+				}
+			}
+		},
+
+		"minecraft:the_nether": {
+			"type": "bigglobe:nether",
+			"generator": {
+				"type": "bigglobe:scripted",
+				"reload_dimension": "minecraft:the_nether"
+			}
+		},
+
+		"minecraft:the_end": {
+			"type": "bigglobe:end",
+			"generator": {
+				"type": "bigglobe:scripted",
+				"reload_dimension": "minecraft:the_end"
+			}
+		}
+	}
+}

@@ -1,0 +1,39 @@
+package builderb0y.bigglobe;
+
+import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+
+import builderb0y.bigglobe.blockdefs.BigGlobeBlocks;
+import builderb0y.bigglobe.commands.BigGlobeCommands;
+import builderb0y.bigglobe.entities.BigGlobeEntityRenderers;
+import builderb0y.bigglobe.f3.BigGlobeDebugHudEntries;
+import builderb0y.bigglobe.fluids.BigGlobeFluids;
+import builderb0y.bigglobe.itemdefs.BigGlobeItems;
+import builderb0y.bigglobe.models.BigGlobeModels;
+import builderb0y.bigglobe.networking.base.BigGlobeNetwork;
+import builderb0y.bigglobe.particles.BigGlobeParticles;
+import builderb0y.bigglobe.scripting.ClientPrintSink;
+import builderb0y.scripting.environments.BuiltinScriptEnvironment;
+
+@Environment(EnvType.CLIENT)
+public class BigGlobeClient implements ClientModInitializer {
+
+	@Override
+	public void onInitializeClient() {
+		BigGlobeMod.LOGGER.info("Initializing client...");
+		BigGlobeFluids.initClient();
+		BigGlobeBlocks.initClient();
+		BigGlobeItems.initClient();
+		BigGlobeModels.init();
+		BigGlobeEntityRenderers.init();
+		BigGlobeNetwork.initClient();
+		BigGlobeCommands.initClient();
+		BigGlobeParticles.initClient();
+
+		BigGlobeDebugHudEntries.init();
+
+		BuiltinScriptEnvironment.PRINTER = new ClientPrintSink();
+		BigGlobeMod.LOGGER.info("Done initializing client.");
+	}
+}

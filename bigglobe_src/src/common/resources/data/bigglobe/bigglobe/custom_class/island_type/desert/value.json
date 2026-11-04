@@ -1,0 +1,14 @@
+{
+	"element_type": "field/enum",
+	"owner": "bigglobe:island_type/base/class",
+	"impl_type": "bigglobe:island_type/desert/class",
+	"name": "DESERT",
+	"field_values": {
+		"weight": 0.25,
+		"maxHeight": 768.0,
+		"isPointy": false,
+		"enabledDecorations": "DESERT",
+		"spawnTweakers": "#bigglobe:islands/desert",
+		"playerSpawnable": false
+	}
+}

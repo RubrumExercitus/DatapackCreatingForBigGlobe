@@ -1,0 +1,7 @@
+{
+	"type": "bigglobe:flower_controller",
+	"config": {
+		"y_level": "world_traits.`bigglobe:flower_y`",
+		"flowers": "#bigglobe:overworld/surface_flowers"
+	}
+}

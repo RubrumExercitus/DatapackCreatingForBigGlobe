@@ -1,0 +1,47 @@
+{
+	"type": "scripted",
+	"script": [
+		"int minFillY = world_traits.`bigglobe:min_y`",
+		"int maxFillY = world_traits.`bigglobe:y_level_on_surface`",
+		"if (hints.isLod:",
+			"setBlockStates(minFillY, maxFillY, `bigglobe:islands/rocks/filler`(maxFillY - 1))",
+		")",
+		"else (",
+			"BlockState prevState = `bigglobe:islands/rocks/filler`(minFillY)",
+			"int prevY = minFillY",
+			"for (int y in range(minFillY, maxFillY):",
+				"BlockState nextState = `bigglobe:islands/rocks/filler`(y)",
+				"if (nextState != prevState:",
+					"setBlockStates(prevY, y, prevState)",
+					"prevY = y",
+					"prevState = nextState",
+				")",
+			")",
+			"setBlockStates(prevY, maxFillY, prevState)",
+		")"
+	],
+	"after_children": {
+		"includes": [
+			"bigglobe:include/generate_snow"
+		],
+		"source": [
+			"int surfaceY = world_traits.`bigglobe:y_level_on_surface`",
+			"if (world_traits.`bigglobe:exact_surface_y` > world_traits.`bigglobe:sea_level` && columnSeed(16xD8C346BDF1997FC2UL).nextBoolean(world_traits.`bigglobe:snow_chance`):",
+				"generateSnow(surfaceY, world_traits.`bigglobe:snow_y`)",
+			")"
+		]
+	},
+	"valid": {
+		"max_y": "world_traits.`bigglobe:y_level_on_surface`",
+		"min_y": "hints.fill ? 16x8000_0000u : world_traits.`bigglobe:y_level_on_surface` - max(hints.distanceBetweenColumns << 2, 8)"
+	},
+	"children": [
+		"bigglobe:overworld/core_carver",
+		"bigglobe:islands/volcano_carver",
+		"bigglobe:overworld/deep_dark_carver",
+		"bigglobe:overworld/chasm_carver",
+		"bigglobe:overworld/cave_carver",
+		"bigglobe:overworld/surface",
+		"bigglobe:overworld/terracotta"
+	]
+}

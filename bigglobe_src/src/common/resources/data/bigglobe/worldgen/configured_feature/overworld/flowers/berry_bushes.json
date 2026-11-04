@@ -1,0 +1,33 @@
+{
+	"type": "bigglobe:flower",
+	"config": {
+		"seed": "berry_bushes",
+		"can_place_at": "world_traits.`bigglobe:enabled_decorations`.grassyFoliage",
+		"distance": 64,
+		"variation": 64,
+		"spawn_chance": 0.125,
+		"randomize_chance": 0.125,
+		"randomize_radius": { "type": "uniform", "min": 16.0, "max": 32.0 },
+		"noise": {
+			"type": "abs",
+			"grid": {
+				"type": "sum",
+				"layers": [
+					{ "type": "smooth", "scale": 32, "amplitude": 0.25 },
+					{ "type": "smooth", "scale": 16, "amplitude": 0.25 },
+					{ "type": "smooth", "scale":  8, "amplitude": 0.25 },
+					{ "type": "smooth", "scale":  4, "amplitude": 0.25 }
+				]
+			}
+		},
+		"entries": {
+			"radius": { "type": "uniform", "min": 16.0, "max": 32.0 },
+			"restrictions": [
+				"fastExp(-64.0L * world_traits.`bigglobe:temperature_at` ^ 2) *",
+				"(1.0L - fastExp(-4.0L * max(world_traits.`bigglobe:foliage_at`, 0.0L) ^ 2))"
+			],
+			"weight": 10.0,
+			"state": "minecraft:sweet_berry_bush"
+		}
+	}
+}

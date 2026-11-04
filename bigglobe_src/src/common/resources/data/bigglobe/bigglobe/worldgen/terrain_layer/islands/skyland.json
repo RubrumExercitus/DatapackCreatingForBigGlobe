@@ -1,0 +1,17 @@
+{
+	"type": "simple_2d",
+	"state": "'minecraft:stone'",
+	"before_children": [
+		"FloatingIslandType type = `bigglobe:islands/type`.as(FloatingIslandType)",
+		"int lowY = floorInt(type.getSkylandMinY(column).value)",
+		"int highY = floorInt(type.getSkylandMaxY(column).value)",
+		"for (SurfaceState layer in type.getSkylandSurfaceStates(column).layers:",
+			"setBlockStates(max(highY - layer.depth, lowY), highY, layer.state)",
+		")"
+	],
+	"valid": {
+		"where": "`bigglobe:islands/type`.is(FloatingIslandType)",
+		"min_y": "floorInt(`bigglobe:islands/type`.as(FloatingIslandType).getSkylandMinY(column).value)",
+		"max_y": "floorInt(`bigglobe:islands/type`.as(FloatingIslandType).getSkylandMaxY(column).value)"
+	}
+}

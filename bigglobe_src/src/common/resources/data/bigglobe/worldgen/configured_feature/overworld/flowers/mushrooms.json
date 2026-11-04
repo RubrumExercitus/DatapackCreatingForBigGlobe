@@ -1,0 +1,48 @@
+{
+	"type": "bigglobe:flower",
+	"config": {
+		"seed": "mushrooms",
+		"can_place_at": "world_traits.`bigglobe:enabled_decorations`.mushrooms",
+		"distance": 32,
+		"variation": 32,
+		"spawn_chance": 0.5,
+		"randomize_chance": 0.25,
+		"randomize_radius": { "type": "uniform", "min": 16.0, "max": 32.0 },
+		"noise": {
+			"type": "abs",
+			"grid": {
+				"type": "sum",
+				"layers": [
+					{ "type": "smooth", "scale": 32, "amplitude": 0.25 },
+					{ "type": "smooth", "scale": 16, "amplitude": 0.25 },
+					{ "type": "smooth", "scale":  8, "amplitude": 0.25 },
+					{ "type": "smooth", "scale":  4, "amplitude": 0.25 }
+				]
+			}
+		},
+		"entries": [
+			{
+				"weight": 1.0,
+				"restrictions": [
+					"fastExp(-64.0L * world_traits.`bigglobe:temperature_at`)",
+					"/ (fastExp(-4.0L * world_traits.`bigglobe:foliage_at`) + 1.0L)",
+					"/ (fastExp(+4.0L * world_traits.`bigglobe:magicalness`) + 1.0L)",
+					"* (world_traits.`bigglobe:humidity_at` * 0.5L + 0.5L)"
+				],
+				"radius": { "type": "uniform", "min": 16.0, "max": 32.0 },
+				"state": "minecraft:red_mushroom"
+			},
+			{
+				"weight": 1.0,
+				"restrictions": [
+					"fastExp(-64.0L * world_traits.`bigglobe:temperature_at`)",
+					"/ (fastExp(-4.0L * world_traits.`bigglobe:foliage_at`) + 1.0L)",
+					"/ (fastExp(+4.0L * world_traits.`bigglobe:magicalness`) + 1.0L)",
+					"* (world_traits.`bigglobe:humidity_at` * -0.5L + 0.5L)"
+				],
+				"radius": { "type": "uniform", "min": 16.0, "max": 32.0 },
+				"state": "minecraft:brown_mushroom"
+			}
+		]
+	}
+}

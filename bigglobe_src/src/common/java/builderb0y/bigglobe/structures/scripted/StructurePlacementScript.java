@@ -1,0 +1,117 @@
+package builderb0y.bigglobe.structures.scripted;
+
+import builderb0y.autocodec.annotations.Wrapper;
+import builderb0y.bigglobe.columns.ColumnEntryRegistry;
+import builderb0y.bigglobe.columns.ExternalEnvironmentParams;
+import builderb0y.bigglobe.noise.NumberArray;
+import builderb0y.bigglobe.scripting.ScriptCatcher;
+import builderb0y.bigglobe.scripting.environments.*;
+import builderb0y.bigglobe.scripting.wrappers.ReadOnlyWorldWrapper;
+import builderb0y.bigglobe.scripting.wrappers.WorldWrapper;
+import builderb0y.scripting.environments.MathScriptEnvironment;
+import builderb0y.scripting.parsing.*;
+import builderb0y.scripting.parsing.input.ScriptUsage;
+import builderb0y.scripting.util.TypeInfos;
+
+import static builderb0y.scripting.bytecode.InsnTrees.*;
+
+public interface StructurePlacementScript extends Script {
+
+	public abstract void place(
+		WorldWrapper world,
+		int minX, int minY, int minZ,
+		int maxX, int maxY, int maxZ,
+		int midX, int midY, int midZ,
+		int chunkMinX, int chunkMinY, int chunkMinZ,
+		int chunkMaxX, int chunkMaxY, int chunkMaxZ,
+		ScriptedStructure.Piece piece
+	);
+
+	@Wrapper
+	public static class Catcher extends ScriptCatcher<StructurePlacementScript> implements StructurePlacementScript {
+
+		public static final WorldWrapper.BoundInfo WORLD = WorldWrapper.BOUND_PARAM;
+
+		public Catcher(ScriptUsage usage) {
+			super(usage);
+		}
+
+		@Override
+		public void compile(ColumnEntryRegistry registry) throws ScriptParsingException {
+			this.script = (
+				new TemplateScriptParser<>(StructurePlacementScript.class, this.usage, registry.parserFlags())
+				.addEnvironment(MathScriptEnvironment.INSTANCE)
+				.configureEnvironment(SymmetryScriptEnvironment.create(ReadOnlyWorldWrapper.INFO.random(WORLD.loadSelf)))
+				.configureEnvironment(CoordinatorScriptEnvironment.create(WORLD.loadSelf))
+				.configureEnvironment(NbtScriptEnvironment.createImmutable())
+				.addEnvironment(StatelessRandomScriptEnvironment.INSTANCE)
+				.configureEnvironment(GridScriptEnvironment.createWithSeed(ReadOnlyWorldWrapper.INFO.seed(WORLD.loadSelf)))
+				.configureEnvironment(StructureScriptEnvironment.live())
+				.configureEnvironment(StructureTemplateScriptEnvironment.create(WORLD.loadSelf))
+				.configure((ExpressionParser parser) -> {
+					parser
+					.environment
+					.mutable()
+					.addVariableLoad("minX", TypeInfos.INT)
+					.addVariableLoad("minY", TypeInfos.INT)
+					.addVariableLoad("minZ", TypeInfos.INT)
+					.addVariableLoad("maxX", TypeInfos.INT)
+					.addVariableLoad("maxY", TypeInfos.INT)
+					.addVariableLoad("maxZ", TypeInfos.INT)
+					.addVariableLoad("midX", TypeInfos.INT)
+					.addVariableLoad("midY", TypeInfos.INT)
+					.addVariableLoad("midZ", TypeInfos.INT)
+					.addVariableLoad("chunkMinX", TypeInfos.INT)
+					.addVariableLoad("chunkMinY", TypeInfos.INT)
+					.addVariableLoad("chunkMinZ", TypeInfos.INT)
+					.addVariableLoad("chunkMaxX", TypeInfos.INT)
+					.addVariableLoad("chunkMaxY", TypeInfos.INT)
+					.addVariableLoad("chunkMaxZ", TypeInfos.INT)
+					.addVariableLoad("piece", type(ScriptedStructure.Piece.class))
+					.addVariableGetField(load("piece", type(ScriptedStructure.Piece.class)), ScriptedStructure.Piece.class, "data")
+					;
+					registry.setupEnvironment(
+						parser,
+						new ExternalEnvironmentParams()
+						.withLookup("world", WORLD.loadSelf)
+						.offsetY(WORLD.originY)
+					);
+				})
+				.addEnvironment(ColorScriptEnvironment.ENVIRONMENT)
+				.addImportedValue("random", ReadOnlyWorldWrapper.INFO.random(WORLD.loadSelf))
+				.parse(new ScriptClassLoader(registry.loader))
+			);
+		}
+
+		@Override
+		public void place(
+			WorldWrapper world,
+			int minX, int minY, int minZ,
+			int maxX, int maxY, int maxZ,
+			int midX, int midY, int midZ,
+			int chunkMinX, int chunkMinY, int chunkMinZ,
+			int chunkMaxX, int chunkMaxY, int chunkMaxZ,
+			ScriptedStructure.Piece piece
+		) {
+			NumberArray.Manager manager = NumberArray.Manager.INSTANCES.get();
+			int used = manager.used;
+			try {
+				this.script.place(
+					world,
+					minX, minY, minZ,
+					maxX, maxY, maxZ,
+					midX, midY, midZ,
+					chunkMinX, chunkMinY, chunkMinZ,
+					chunkMaxX, chunkMaxY, chunkMaxZ,
+					piece
+				);
+			}
+			catch (Throwable throwable) {
+				this.onError(throwable);
+			}
+			finally {
+				manager.used = used;
+			}
+		}
+	}
+}

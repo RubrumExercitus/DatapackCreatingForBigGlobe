@@ -1,0 +1,24 @@
+{
+	"type": "bigglobe:overworld",
+	"generator": {
+		"type": "bigglobe:scripted",
+		"biome_source": {
+			"type": "minecraft:fixed",
+			"biome": "minecraft:plains"
+		},
+		"height": {
+			"min_y": -1024,
+			"max_y":  1024,
+			"sea_level": -256
+		},
+		"layer": "bigglobe:paradise/root",
+		"feature_dispatcher": {
+			"rock_replacers": [
+				"bigglobe:overworld/cobblestone_sprinkle"
+			],
+			"raw": "bigglobe:paradise/raw_root",
+			"normal": "bigglobe:noop"
+		},
+		"overriders": "#bigglobe:empty"
+	}
+}
